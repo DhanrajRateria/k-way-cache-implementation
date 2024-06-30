@@ -1,8 +1,8 @@
-package cache;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+
+import cache.*;
 public class Main {
     public static void main(String[] args) {
         int cacheSize = 1024;
@@ -15,7 +15,7 @@ public class Main {
             Cache cache = new Cache(cacheSize, blockSize, k);
             Random random = new Random();
 
-            for (int i = 0; i < numOperatios; i++) {
+            for (int i = 0; i < numOperations; i++) {
                 int key = random.nextInt(10000);
                 cache.getData(key);
             }

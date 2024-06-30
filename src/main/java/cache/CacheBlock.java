@@ -20,7 +20,7 @@ public class CacheBlock {
         return data;
     }
 
-    public int setData(int data){
+    public void setData(int data){
         this.data = data;
     }
 

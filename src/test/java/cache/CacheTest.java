@@ -1,9 +1,5 @@
 package cache;
-
 import org.junit.jupiter.api.Test;
-
-import main.java.cache.CacheMetrics;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.beans.Transient;
@@ -37,7 +33,7 @@ public class CacheTest {
 
         Thread[] threads = new Thread[numThreads];
         for (int i = 0; i < numThreads; i++) {
-            threads[i] = newThread(() -> {
+            threads[i] = new Thread(() -> {
                 for (int j = 0; j < numOperationsPerThread; j++) {
                     int key = (int) (Math.random() * 1000);
                     cache.getData(key);

@@ -1,4 +1,4 @@
-package main.java.cache;
+package cache;
 
 public class CacheMetrics {
     private long hits;
@@ -13,6 +13,14 @@ public class CacheMetrics {
     public void incrementMisses() {
         misses++;
         totalAccesses++;
+    }
+
+    public long getHits() {
+        return hits;
+    }
+
+    public long getMisses() {
+        return misses;
     }
 
     public double getHitRate() {

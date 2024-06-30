@@ -34,13 +34,13 @@ public class CacheSet {
         }
     }
     public void put(int key, int data){
-        lock.writeLock.lock();
+        lock.writeLock().lock();
         try{
             if(lruPolicy.containsKey(key)){
                 for(CacheBlock block : blocks){
                     if(block.isValid() && block.getKey() == key){
                         block.setData(data);
-                        lryPolicy.put(key, data);
+                        lruPolicy.put(key, data);
                         return;
                     }
                 }
