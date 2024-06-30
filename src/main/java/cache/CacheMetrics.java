@@ -1,34 +1,47 @@
 package cache;
+import java.util.concurrent.atomic.AtomicLong;
 
 public class CacheMetrics {
-    private long hits;
-    private long misses;
-    private long totalAccesses;
+    private final AtomicLong hits;
+    private final AtomicLong misses;
+    private final AtomicLong totalAccesses;
+
+    public CacheMetrics() {
+        this.hits = new AtomicLong(0);
+        this.misses = new AtomicLong(0);
+        this.totalAccesses = new AtomicLong(0);
+    }
 
     public void incrementHits() {
-        hits++;
-        totalAccesses++;
+        hits.incrementAndGet();
+        totalAccesses.incrementAndGet();
     }
 
     public void incrementMisses() {
-        misses++;
-        totalAccesses++;
+        misses.incrementAndGet();
+        totalAccesses.incrementAndGet();
     }
 
     public long getHits() {
-        return hits;
+        return hits.get();
     }
 
     public long getMisses() {
-        return misses;
+        return misses.get();
+    }
+
+    public long getTotalAccesses() {
+        return totalAccesses.get();
     }
 
     public double getHitRate() {
-        return totalAccesses == 0 ? 0 : (double) hits / totalAccesses;
+        long total = totalAccesses.get();
+        return total == 0 ? 0 : (double) hits.get() / total;
     }
 
     public double getMissRate() {
-        return totalAccesses == 0 ? 0 : (double) misses / totalAccesses;
+        long total = totalAccesses.get();
+        return total == 0 ? 0 : (double) misses.get() / total;
     }
 
     public double getAMAT() {
@@ -43,6 +56,6 @@ public class CacheMetrics {
     @Override
     public String toString() {
         return String.format("Hits: %d, Misses: %d, Hit Rate: %.2f%%, Miss Rate: %.2f%%, AMAT: %.2f ns",
-                hits, misses, getHitRate() * 100, getMissRate() * 100, getAMAT() * 1e9);
+                hits.get(), misses.get(), getHitRate() * 100, getMissRate() * 100, getAMAT() * 1e9);
     }
 }
